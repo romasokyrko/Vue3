@@ -1,30 +1,44 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <navbar></navbar>
+    <div class="app">
+
+    <router-view v-slot="{Component}">
+        <transition name="page" mode="out-in">
+            <component :is="Component"></component>
+        </transition>
+    </router-view>
+    </div>
 </template>
 
+<script>
+import Navbar from '@/components/Navbar'
+    export default {
+  components: { Navbar },
+
+    }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
-nav {
-  padding: 30px;
+.app{
+    padding: 20px;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.page-leave-to {
+    opacity: 0;
+    transform: translateX(-50px);
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.page-leave-active {
+    transition: all 0.4s ease-in;
+}
+.page-enter-from {
+    opacity: 0;
+    transform: translateX(50px);
+}
+.page-enter-active {
+    transition: all 0.4s ease-out;
 }
 </style>
